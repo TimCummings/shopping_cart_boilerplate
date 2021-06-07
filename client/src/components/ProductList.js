@@ -2,12 +2,14 @@ import React from "react"
 import Product from "./Product"
 import AddProductForm from "./AddProductForm"
 
-const ProductList = () => {
+const ProductList = ({ products }) => {
   return (
     <main>
-      <div class="product-listing">
+      <div className="product-listing">
         <h2>Products</h2>
-        <Product />
+        {products.map(product => {
+          return <Product {...product} key={product.id} />
+        })}
       </div>
 
       <AddProductForm />
