@@ -1,28 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AddProductForm = () => {
+const AddProductForm = ({ onSubmit }) => {
+  const [ name, setName ] = useState('');
+  const [ price, setPrice ] = useState('');
+  const [ quantity, setQuantity ] = useState('');
+
+  const submitHandler = event => {
+    event.preventDefault();
+    onSubmit(name, price, quantity)
+      .then(_ => {
+        setName('');
+        setPrice('');
+        setQuantity('');
+      });
+  };
+
   return (
     <div className="add-form visible">
       <p><a className="button add-product-button">Add A Product</a></p>
       <h3>Add Product</h3>
-      <form>
+      <form onSubmit={submitHandler}>
         <div className="input-group">
           <label for="product-name">Product Name</label>
-          <input type="text" id="product-name" value="" />
+          <input type="text" id="product-name" value={name}
+            onChange={event => setName(event.target.value) } />
         </div>
 
         <div className="input-group">
           <label for="product-price">Price</label>
-          <input type="text" id="product-price" value="" />
+          <input type="text" id="product-price" value={price}
+            onChange={event => setPrice(event.target.value) } />
         </div>
 
         <div className="input-group">
           <label for="product-quantity">Quantity</label>
-          <input type="text" id="product-quantity" value="" />
+          <input type="text" id="product-quantity" value={quantity}
+            onChange={event => setQuantity(event.target.value) } />
         </div>
 
         <div className="actions form-actions">
-          <a className="button">Add</a>
+          <button className="button" type="submit">Add</button>
           <a className="button">Cancel</a>
         </div>
       </form>

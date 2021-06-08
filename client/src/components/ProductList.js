@@ -3,18 +3,18 @@ import Product from "./Product"
 import AddProductForm from "./AddProductForm"
 
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, onSubmit }) => {
 
   return (
     <main>
       <div className="product-listing">
         <h2>Products</h2>
         {products.map(product => {
-          return <Product {...product} key={product.id} />
+          return <Product {...product} key={product._id} />
         })}
       </div>
 
-      <AddProductForm />
+      <AddProductForm onSubmit={onSubmit} />
     </main>
   )
 }
