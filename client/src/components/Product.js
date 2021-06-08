@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import EditProductForm from "./EditProductForm"
 
-const Product = ({ title, quantity, price }) => {
+const Product = ({ _id, title, quantity, price, onSubmit }) => {
   const [visibleEdit, setVisibleEdit] = useState(false)
+  const hideEditForm = () => setVisibleEdit(false);
 
   return (
     <div className="product">
@@ -16,7 +17,9 @@ const Product = ({ title, quantity, price }) => {
         </div>
         <a className="delete-button"><span>X</span></a>
       </div>
-      {visibleEdit ? <EditProductForm title={title} quantity={quantity} price={price} /> : null}
+      {visibleEdit ? <EditProductForm _id={_id} title={title}
+        quantity={quantity} price={price} hideEditForm={hideEditForm}
+        setVisibleEdit={setVisibleEdit} onSubmit={onSubmit} /> : null}
     </div>
   )
 }

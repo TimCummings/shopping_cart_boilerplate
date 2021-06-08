@@ -31,10 +31,35 @@ const App = () => {
       .catch(error => console.log(error));
   };
 
+  const handleEditProduct = (_id, title, price, quantity) => {
+    const data = {
+      title: title,
+      price: parseFloat(price).toFixed(2),
+      quantity: parseInt(quantity, 10),
+    };
+
+    return axios.put(`/api/products/${_id}`, data)
+      .then(response => response.data)
+      .then(editedProduct =>
+        setProducts(products.map(product => {
+          if (product._id === _id) {
+            return Object.assign({}, product,
+              { title: editedProduct.title,
+                price: editedProduct.price,
+                quantity: editedProduct.quantity});
+          } else {
+            return product;
+          }
+        }))
+      )
+      .catch(error => console.log(error));
+  };
+
   return (
     <div id="app">
       <CartDetails cart={cart} />
-      <ProductList products={products} onSubmit={handleAddProduct} />
+      <ProductList products={products} handleAddProduct={handleAddProduct}
+        handleEditProduct={handleEditProduct} />
     </div>
   );
 };

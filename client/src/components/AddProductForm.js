@@ -40,7 +40,7 @@ const AddProductForm = ({ onSubmit }) => {
 
         <div className="actions form-actions">
           <button className="button" type="submit">Add</button>
-          <a className="button">Cancel</a>
+          <button className="button" type="reset">Cancel</button>
         </div>
       </form>
     </div>
