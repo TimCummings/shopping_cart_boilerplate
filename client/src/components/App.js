@@ -117,9 +117,15 @@ const App = () => {
       .catch(console.error);
   };
 
+  const handleCheckout = () => {
+    return axios.post("/api/cart/checkout").then(() => {
+      setCart([]);
+    });
+  };
+
   return (
     <div id="app">
-      <CartDetails cart={cart} />
+      <CartDetails cart={cart} onCheckout={handleCheckout} />
       <ProductList
         products={products}
         cart={cart}

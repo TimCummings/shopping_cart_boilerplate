@@ -1,7 +1,7 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-const CartDetails = ({ cart }) => {
+const CartDetails = ({ cart, onCheckout }) => {
   console.log({ cart });
   const calculateTotal = () => {
     return cart.reduce((sum, item) => {
@@ -33,7 +33,9 @@ const CartDetails = ({ cart }) => {
             </tr>
           </tbody>
         </table>
-        <a class="button checkout">Checkout</a>
+        <a class="button checkout" onClick={onCheckout}>
+          Checkout
+        </a>
       </div>
       {/* <div className="cart">
         <h2>Your Cart</h2>
