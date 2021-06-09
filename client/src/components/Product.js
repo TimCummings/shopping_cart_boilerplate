@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import EditProductForm from "./EditProductForm"
 
-const Product = ({ _id, title, quantity, price, onSubmit }) => {
+const Product = ({ _id, title, quantity, price, onSubmit, onDeleteProduct }) => {
   const [visibleEdit, setVisibleEdit] = useState(false)
   const hideEditForm = () => setVisibleEdit(false);
+
+  const handleOnDeleteClick = (e) => {
+    e.preventDefault()
+    onDeleteProduct(_id)
+  }
 
   return (
     <div className="product">
@@ -15,7 +20,7 @@ const Product = ({ _id, title, quantity, price, onSubmit }) => {
           <a className="button add-to-cart">Add to Cart</a>
           <a className="button edit" onClick={() => setVisibleEdit(!visibleEdit)}>Edit</a>
         </div>
-        <a className="delete-button"><span>X</span></a>
+        <a className="delete-button" onClick={handleOnDeleteClick}><span>X</span></a>
       </div>
       {visibleEdit ? <EditProductForm _id={_id} title={title}
         quantity={quantity} price={price} hideEditForm={hideEditForm}

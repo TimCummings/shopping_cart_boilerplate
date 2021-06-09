@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CartDetails from "./CartDetails"
-import ProductList from "./ProductList"
+import CartDetails from "./CartDetails";
+import ProductList from "./ProductList";
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/products')
-      .then(response => response.data)
-      .then(data => {
+    axios
+      .get("/api/products")
+      .then((response) => response.data)
+      .then((data) => {
         setProducts(data);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }, []);
 
   const handleAddProduct = (name, price, quantity) => {
@@ -23,12 +24,13 @@ const App = () => {
       quantity: parseInt(quantity, 10),
     };
 
-    return axios.post('/api/products', data)
-      .then(response => {
+    return axios
+      .post("/api/products", data)
+      .then((response) => {
         return response.data;
       })
-      .then(newProduct => setProducts(products.concat(newProduct)))
-      .catch(error => console.log(error));
+      .then((newProduct) => setProducts(products.concat(newProduct)))
+      .catch((error) => console.log(error));
   };
 
   const handleEditProduct = (_id, title, price, quantity) => {
@@ -38,28 +40,45 @@ const App = () => {
       quantity: parseInt(quantity, 10),
     };
 
-    return axios.put(`/api/products/${_id}`, data)
-      .then(response => response.data)
-      .then(editedProduct =>
-        setProducts(products.map(product => {
-          if (product._id === _id) {
-            return Object.assign({}, product,
-              { title: editedProduct.title,
+    return axios
+      .put(`/api/products/${_id}`, data)
+      .then((response) => response.data)
+      .then((editedProduct) =>
+        setProducts(
+          products.map((product) => {
+            if (product._id === _id) {
+              return Object.assign({}, product, {
+                title: editedProduct.title,
                 price: editedProduct.price,
-                quantity: editedProduct.quantity});
-          } else {
-            return product;
-          }
-        }))
+                quantity: editedProduct.quantity,
+              });
+            } else {
+              return product;
+            }
+          })
+        )
       )
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
+  };
+
+  const handleDeleteProduct = (_id) => {
+    return axios
+      .delete(`/api/products/${_id}`)
+      .then(() => {
+        setProducts(products.filter((product) => product._id !== _id));
+      })
+      .catch(console.error);
   };
 
   return (
     <div id="app">
       <CartDetails cart={cart} />
-      <ProductList products={products} handleAddProduct={handleAddProduct}
-        handleEditProduct={handleEditProduct} />
+      <ProductList
+        products={products}
+        handleAddProduct={handleAddProduct}
+        handleEditProduct={handleEditProduct}
+        handleDeleteProduct={handleDeleteProduct}
+      />
     </div>
   );
 };
