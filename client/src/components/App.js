@@ -80,7 +80,7 @@ const App = () => {
   };
 
   const updateCart = (cartItem, productId) => {
-    const found = cart.find((item) => item._id === productId);
+    const found = cart.find((item) => item.productId === productId);
     if (found !== undefined) {
       setCart(
         cart.map((item) => {
