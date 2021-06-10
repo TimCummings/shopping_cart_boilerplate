@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import axios from "axios"
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import CartItem from "./CartItem";
-import { cartRetrievedSuccess, cartCheckoutSuccess } from "../actions/cartActions"
+import {
+  cartRetrievedSuccess,
+  cartCheckoutSuccess,
+} from "../actions/cartActions";
 
 const CartDetails = () => {
-  const cart = useSelector((state) => state.cart)
+  const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 

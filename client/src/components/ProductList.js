@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux"
-import axios from "axios"
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import Product from "./Product";
 import AddProductForm from "./AddProductForm";
-import { productsRetrievedSuccess, newProductAdded, productsUpdated, productsOneDeleted } from "../actions/productActions"
-import { cartQuantityUpdated, cartNewItemAdded } from "../actions/cartActions"
+import {
+  productsRetrievedSuccess,
+  newProductAdded,
+  productsUpdated,
+  productsOneDeleted,
+} from "../actions/productActions";
+import { cartQuantityUpdated, cartNewItemAdded } from "../actions/cartActions";
 
 const ProductList = () => {
-  const products = useSelector((state) => state.products)
-  const cart = useSelector(state => state.cart)
+  const products = useSelector((state) => state.products);
+  const cart = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
@@ -48,21 +53,7 @@ const ProductList = () => {
     return axios
       .put(`/api/products/${_id}`, data)
       .then((response) => response.data)
-      .then((editedProduct) =>
-        dispatch(productsUpdated(
-          products.map((product) => {
-            if (product._id === _id) {
-              return Object.assign({}, product, {
-                title: editedProduct.title,
-                price: editedProduct.price,
-                quantity: editedProduct.quantity,
-              });
-            } else {
-              return product;
-            }
-          })
-        ))
-      )
+      .then((editedProduct) => dispatch(productsUpdated(editedProduct, id)))
       .catch((error) => console.log(error));
   };
 
@@ -70,7 +61,9 @@ const ProductList = () => {
     return axios
       .delete(`/api/products/${_id}`)
       .then(() => {
-        dispatch(productsOneDeleted(products.filter((product) => product._id !== _id)));
+        dispatch(
+          productsOneDeleted(products.filter((product) => product._id !== _id))
+        );
       })
       .catch(console.error);
   };
@@ -78,14 +71,16 @@ const ProductList = () => {
   const updateCart = (cartItem, productId) => {
     const found = cart.find((item) => item.productId === productId);
     if (found !== undefined) {
-      dispatch(cartQuantityUpdated(
-        cart.map((item) => {
-          if (item._id === cartItem._id) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-        })
-      ));
+      dispatch(
+        cartQuantityUpdated(
+          cart.map((item) => {
+            if (item._id === cartItem._id) {
+              return { ...item, quantity: item.quantity + 1 };
+            }
+            return item;
+          })
+        )
+      );
     } else {
       dispatch(cartNewItemAdded(cart.concat({ ...cartItem, productId })));
     }

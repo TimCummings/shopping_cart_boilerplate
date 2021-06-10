@@ -10,7 +10,6 @@ const Product = ({
   onDeleteProduct,
   onAddToCart,
 }) => {
-
   const [visibleEdit, setVisibleEdit] = useState(false);
   const hideEditForm = () => setVisibleEdit(false);
 

@@ -12,6 +12,7 @@ export const cart = (state = [], action) => {
     case "NEW_CART_ITEM": {
       return action.payload.cartItems;
     }
-    default: return state;
+    default:
+      return state;
   }
-}
+};
