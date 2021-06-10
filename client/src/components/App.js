@@ -1,4 +1,4 @@
-// @ts-check
+
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -19,12 +19,12 @@ const App = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  useEffect(() => {
-    axios
-      .get("/api/cart")
-      .then((response) => response.data)
-      .then((data) => setCart(data));
-  }, []);
+  /*   useEffect(() => {
+      axios
+        .get("/api/cart")
+        .then((response) => response.data)
+        .then((data) => setCart(data));
+    }, []); */
 
   const handleAddProduct = (name, price, quantity) => {
     const data = {
@@ -117,15 +117,15 @@ const App = () => {
       .catch(console.error);
   };
 
-  const handleCheckout = () => {
-    return axios.post("/api/cart/checkout").then(() => {
-      setCart([]);
-    });
-  };
+  /*   const handleCheckout = () => {
+      return axios.post("/api/cart/checkout").then(() => {
+        setCart([]);
+      });
+    }; */
 
   return (
     <div id="app">
-      <CartDetails cart={cart} onCheckout={handleCheckout} />
+      <CartDetails />
       <ProductList
         products={products}
         cart={cart}
