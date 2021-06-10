@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 const EditProductForm = ({ _id, title, quantity, price, onSubmit, setVisibleEdit,
   hideEditForm }) => {
-  const [ editTitle, setTitle ] = useState(title);
-  const [ editPrice, setPrice ] = useState(quantity);
-  const [ editQuantity, setQuantity ] = useState(price);
+  const [editTitle, setTitle] = useState(title);
+  const [editPrice, setPrice] = useState(price);
+  const [editQuantity, setQuantity] = useState(quantity);
 
   const submitHandler = event => {
     event.preventDefault();
@@ -20,19 +20,19 @@ const EditProductForm = ({ _id, title, quantity, price, onSubmit, setVisibleEdit
         <div className="input-group">
           <label for="product-name">Product Name</label>
           <input type="text" id="product-name" value={editTitle}
-            onChange={event => setTitle(event.target.value) } />
+            onChange={event => setTitle(event.target.value)} />
         </div>
 
         <div className="input-group">
           <label for="product-price">Price</label>
           <input type="text" id="product-price" value={editPrice}
-            onChange={event => setPrice(event.target.value) } />
+            onChange={event => setPrice(event.target.value)} />
         </div>
 
         <div className="input-group">
           <label for="product-quantity">Quantity</label>
           <input type="text" id="product-quantity" value={editQuantity}
-            onChange={event => setQuantity(event.target.value) } />
+            onChange={event => setQuantity(event.target.value)} />
         </div>
 
         <div className="actions form-actions">
