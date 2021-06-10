@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import CartItem from "./CartItem";
 import { cartRetrievedSuccess, cartCheckoutSuccess } from "../actions/cartActions"
-//need to define action creator, cartRetrievedSuccess and cartCheckoutSuccess
 
 const CartDetails = () => {
   const cart = useSelector((state) => state.cart)

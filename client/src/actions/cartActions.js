@@ -15,3 +15,21 @@ export const cartCheckoutSuccess = (data) => {
     }
   }
 }
+
+export const cartQuantityUpdated = (data) => {
+  return {
+    type: "ITEM_QUANTITY_INCREM",
+    payload: {
+      cartItems: data
+    }
+  }
+}
+
+export const cartNewItemAdded = (data) => {
+  return {
+    type: "NEW_CART_ITEM",
+    payload: {
+      cartItems: data
+    }
+  }
+}
