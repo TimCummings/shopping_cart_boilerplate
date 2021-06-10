@@ -7,19 +7,19 @@ export const productsRetrievedSuccess = (data) => {
   };
 };
 
-export const newProductAdded = (newProduct, id) => {
+export const newProductAdded = (newProduct) => {
   return {
     type: "PRODUCT_ADDED",
-    payload: { id, newProduct },
+    payload: {
+      newProduct: newProduct,
+    },
   };
 };
 
-export const productsUpdated = (productList) => {
+export const productsUpdated = (editedProduct, id) => {
   return {
     type: "PRODUCTS_UPDATED",
-    payload: {
-      updatedList: productList,
-    },
+    payload: { id, editedProduct },
   };
 };
 

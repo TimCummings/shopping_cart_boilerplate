@@ -7,11 +7,23 @@ export const products = (state = [], action) => {
       return state.concat(action.payload.newProduct);
     }
     case "PRODUCTS_UPDATED": {
-      return action.payload.updatedList;
+      const { id, editedProduct } = action.payload;
+      return state.map((product) => {
+        if (product._id === id) {
+          return Object.assign({}, product, {
+            title: editedProduct.title,
+            price: editedProduct.price,
+            quantity: editedProduct.quantity,
+          });
+        } else {
+          return product;
+        }
+      });
     }
     case "PRODUCT_DELETED": {
       return action.payload.updatedList;
     }
-    default: return state;
+    default:
+      return state;
   }
-}
+};
