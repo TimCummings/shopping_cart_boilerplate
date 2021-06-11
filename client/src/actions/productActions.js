@@ -1,3 +1,5 @@
+import apiClient from "../lib/apiClient";
+
 export const productsRetrievedSuccess = (data) => {
   return {
     type: "PRODUCTS_RETRIEVED",
@@ -7,12 +9,28 @@ export const productsRetrievedSuccess = (data) => {
   };
 };
 
-export const newProductAdded = (newProduct) => {
+export const productsRetrieved = () => {
+  return function (dispatch) {
+    return apiClient.getProducts((products) => {
+      dispatch(productsRetrievedSuccess(products));
+    });
+  };
+};
+
+export const productAddedSuccess = (data) => {
   return {
     type: "PRODUCT_ADDED",
     payload: {
-      newProduct: newProduct,
+      newProduct: data,
     },
+  };
+};
+
+export const productAdded = (newProduct) => {
+  return function (dispatch) {
+    return apiClient.addProduct(newProduct, (data) => {
+      dispatch(productAddedSuccess(data));
+    });
   };
 };
 

@@ -4,8 +4,8 @@ import axios from "axios";
 import Product from "./Product";
 import AddProductForm from "./AddProductForm";
 import {
-  productsRetrievedSuccess,
-  newProductAdded,
+  productsRetrieved,
+  productAdded,
   productsUpdated,
   productsOneDeleted,
 } from "../actions/productActions";
@@ -17,30 +17,10 @@ const ProductList = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    axios
-      .get("/api/products")
-      .then((response) => response.data)
-      .then((data) => {
-        dispatch(productsRetrievedSuccess(data));
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  useEffect(() => dispatch(productsRetrieved()), []);
 
   const handleAddProduct = (name, price, quantity) => {
-    const data = {
-      title: name,
-      price: parseFloat(price).toFixed(2),
-      quantity: parseInt(quantity, 10),
-    };
-
-    return axios
-      .post("/api/products", data)
-      .then((response) => {
-        return response.data;
-      })
-      .then((newProduct) => dispatch(newProductAdded(newProduct)))
-      .catch((error) => console.log(error));
+    dispatch(productAdded({ name, price, quantity }));
   };
 
   const handleEditProduct = (_id, title, price, quantity) => {

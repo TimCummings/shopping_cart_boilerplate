@@ -6,9 +6,6 @@ import store from "./lib/store"
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
-//import store
-//wrap App in Provider, handing store as an element attribute
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
