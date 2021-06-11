@@ -9,7 +9,7 @@ import {
   productsUpdated,
   productsOneDeleted,
 } from "../actions/productActions";
-import { cartQuantityUpdated, cartNewItemAdded } from "../actions/cartActions";
+import { cartItemAdded } from "../actions/cartActions";
 
 const ProductList = () => {
   const products = useSelector((state) => state.products);
@@ -61,34 +61,14 @@ const ProductList = () => {
     return axios
       .delete(`/api/products/${_id}`)
       .then(() => {
-        dispatch(
-          productsOneDeleted(products.filter((product) => product._id !== _id))
-        );
+        dispatch(productsOneDeleted(_id));
       })
       .catch(console.error);
   };
 
-  const updateCart = (cartItem, productId) => {
-    const found = cart.find((item) => item.productId === productId);
-    if (found !== undefined) {
-      dispatch(
-        cartQuantityUpdated(
-          cart.map((item) => {
-            if (item._id === cartItem._id) {
-              return { ...item, quantity: item.quantity + 1 };
-            }
-            return item;
-          })
-        )
-      );
-    } else {
-      dispatch(cartNewItemAdded(cart.concat({ ...cartItem, productId })));
-    }
-  };
-
   const handleAddToCart = ({ _id, title, quantity, price }) => {
     if (quantity < 1) {
-      console.log(`Product ${title} not available`);
+      console.error(`Out of stock of ${title}, cannot add to cart!`);
       return;
     }
 
@@ -102,9 +82,7 @@ const ProductList = () => {
           })
           .then((response) => response.data);
       })
-      .then((cartItem) => {
-        updateCart(cartItem, _id);
-      })
+      .then((cartItem) => dispatch(cartItemAdded(cartItem)))
       .catch(console.error);
   };
 

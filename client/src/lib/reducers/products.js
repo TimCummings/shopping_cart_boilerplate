@@ -21,7 +21,8 @@ export const products = (state = [], action) => {
       });
     }
     case "PRODUCT_DELETED": {
-      return action.payload.updatedList;
+      const id = action.payload.id;
+      return state.filter((product) => product._id !== id);
     }
     default:
       return state;

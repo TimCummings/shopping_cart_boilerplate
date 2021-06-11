@@ -23,11 +23,9 @@ export const productsUpdated = (editedProduct, id) => {
   };
 };
 
-export const productsOneDeleted = (productList) => {
+export const productsOneDeleted = (id) => {
   return {
     type: "PRODUCT_DELETED",
-    payload: {
-      updatedList: productList,
-    },
+    payload: { id },
   };
 };

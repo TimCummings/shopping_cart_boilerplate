@@ -16,7 +16,7 @@ const CartDetails = () => {
     axios
       .get("/api/cart")
       .then((response) => response.data)
-      .then((data) => dispatch(cartRetrievedSuccess(data))); //dispatch
+      .then((data) => dispatch(cartRetrievedSuccess(data)));
   }, []);
 
   const handleCheckout = (e) => {
