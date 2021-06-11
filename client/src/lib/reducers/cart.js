@@ -6,10 +6,7 @@ export const cart = (state = [], action) => {
     case "CART_CHECKED_OUT": {
       return action.payload.cartItems;
     }
-    case "ADD_ITEM_TO_CART": {
-      return;
-    }
-    case "NEW_CART_ITEM": {
+    case "CART_ITEM_ADDED": {
       const cartItem = action.payload.cartItem;
       const found = state.find((item) => item.productId === cartItem.productId);
 

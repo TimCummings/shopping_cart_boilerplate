@@ -18,7 +18,7 @@ export const cartCheckoutSuccess = (data) => {
 
 export const cartItemAdded = (data) => {
   return {
-    type: "NEW_CART_ITEM",
+    type: "CART_ITEM_ADDED",
     payload: {
       cartItem: data,
     },
