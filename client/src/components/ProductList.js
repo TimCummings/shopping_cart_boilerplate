@@ -53,7 +53,7 @@ const ProductList = () => {
     return axios
       .put(`/api/products/${_id}`, data)
       .then((response) => response.data)
-      .then((editedProduct) => dispatch(productsUpdated(editedProduct, id)))
+      .then((editedProduct) => dispatch(productsUpdated(editedProduct, _id)))
       .catch((error) => console.log(error));
   };
 
